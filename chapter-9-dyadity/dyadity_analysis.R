@@ -10,10 +10,12 @@
 # QUICK START
 #   source("dyadity_analysis.R")
 #   res <- dyadity_analysis(mydata, group = "group", actor = "actor",
-#                           partner = "partner", y1 = "listen1",
-#                           y2 = "listen2",   # optional second indicator
+#                           partner = "partner",
+#                           y = "listen1",                 # one indicator, or
+#                           # y = c("listen1", "listen2"), # two or more indicators
 #                           B = 9999, seed = 1)
 #   print(res)
+#   verify_matrix(res)                                      # matrix-algebra checks
 #   role_test(res, roles, role = "mother")                  # one-sample t on Delta D_r
 #   role_test(res, roles, role = "mother", role2 = "father") # paired t
 #   kp_contrast_test(res, roles, kp_role = "KP")             # Eqs. 9.11 and 9.12
@@ -22,21 +24,22 @@
 #   group    round-robin identifier
 #   actor    person identifier (unique within group)
 #   partner  person identifier
-#   y1       the dependent variable (first indicator)
-#   y2       optional second indicator of the same construct
+#   y        the dependent variable; with K >= 2 indicators of the same
+#            construct, one column per indicator
 # Every group must be a complete round robin with n >= 4 members.
 # Groups may differ in size.
 #
 # PRACTICAL NOTES
 # * With one indicator, dyadity indices square relationship effects that contain
-#   measurement error. With two indicators of the same construct, supply y2:
-#   the indices then use cross-products (Eqs. 9.6a, 9.8a) and are free of
-#   error bias; individual indices can be negative (read as "no dyadity").
+#   measurement error. With K >= 2 indicators of the same construct, supply
+#   them all in y: the indices then use cross-products averaged over the
+#   K(K - 1)/2 pairs of indicators (Eqs. 9.6a, 9.8a) and are free of error
+#   bias; individual indices can be negative (read as "no dyadity").
 # * The Monte Carlo test compares the mean within-group variance of the
 #   dyadity indices with its expected value when no one differs. Do not test
 #   that variance against 0. B = 9999 takes seconds to a few minutes.
 # * Calibration (simulated data, true null, alpha = .05): rejection rates of
-#   .03 to .05 with one indicator and .03 to .08 with two indicators.
+#   .03 to .05 with one indicator and .02 to .08 with two or three indicators.
 # * Power depends mostly on round-robin size. When one member had four times
 #   the relationship variance of the others, the test detected it 82% of the
 #   time with 20 eight-person round robins, but only 13% of the time with 50
@@ -75,21 +78,20 @@ srm_rr <- function(X) {
 
 ## ---------------------------------------------------------------------------
 ## 2. Dyadity indices for one round robin (Equations 9.6 to 9.10, 9.6a, 9.8a)
+##    Xs: list of K >= 1 matrices (indicators of the same construct) with the
+##    same members. K = 1: squared effects (9.6, 9.8). K >= 2: products of the
+##    indicators' relationship effects averaged over the K(K - 1)/2 pairs
+##    (9.6a, 9.8a), which removes measurement error.
 ## ---------------------------------------------------------------------------
-dyadity_rr <- function(X1, X2 = NULL) {
-  f1 <- srm_rr(X1); n <- f1$n
-  G1 <- f1$G; diag(G1) <- 0
-  if (is.null(X2)) {
-    S <- G1 * G1                                      # squares (9.6, 9.8)
-    f2 <- NULL; G2 <- NULL
-  } else {
-    f2 <- srm_rr(X2); G2 <- f2$G; diag(G2) <- 0
-    S <- G1 * G2                                      # cross-products (9.6a, 9.8a)
-  }
+dyadity_rr <- function(Xs) {
+  if (is.matrix(Xs) || is.data.frame(Xs)) Xs <- list(Xs)
+  fits <- lapply(Xs, srm_rr); n <- fits[[1]]$n; K <- length(Xs)
+  Gs <- lapply(fits, function(f) { G <- f$G; diag(G) <- 0; G })
+  S <- product_matrix(Gs)
   d_exp  <- rowSums(S) / (n - 1)                      # expressed dyadity, D_i.
   d_elic <- colSums(S) / (n - 1)                      # elicited dyadity, D_.j
   mbar   <- mean(d_exp)                               # = mean(d_elic) (identity)
-  ids <- rownames(as.matrix(X1)); if (is.null(ids)) ids <- as.character(seq_len(n))
+  ids <- rownames(as.matrix(Xs[[1]])); if (is.null(ids)) ids <- as.character(seq_len(n))
   persons <- data.frame(
     person   = ids,
     D_exp    = d_exp,
@@ -98,10 +100,17 @@ dyadity_rr <- function(X1, X2 = NULL) {
     ratio_exp  = if (mbar > 0) d_exp / mbar else NA,  # standardized (1.00 = average)
     ratio_elic = if (mbar > 0) d_elic / mbar else NA,
     stringsAsFactors = FALSE)
-  list(n = n, persons = persons,
+  list(n = n, K = K, persons = persons, S = S,
        var_exp = var(d_exp), var_elic = var(d_elic),
-       mean_D = mbar, G1 = G1, G2 = G2, srm1 = f1, srm2 = f2,
-       cross = !is.null(X2))
+       mean_D = mbar, G = Gs, srm = fits, X = Xs)
+}
+
+product_matrix <- function(Gs) {
+  # S = G o G (one indicator) or the average of G_k o G_l over pairs k < l
+  K <- length(Gs)
+  if (K == 1) return(Gs[[1]] * Gs[[1]])
+  pr <- combn(K, 2)
+  Reduce(`+`, lapply(seq_len(ncol(pr)), function(p) Gs[[pr[1, p]]] * Gs[[pr[2, p]]])) / ncol(pr)
 }
 
 ## ---------------------------------------------------------------------------
@@ -124,8 +133,9 @@ long_to_matrices <- function(data, group, actor, partner, y) {
 ## 4. Monte Carlo null for individual differences in dyadity
 ##    Null: every member has the same relationship variance (no individual
 ##    differences in expressed or elicited dyadity). Dyad-level scores are
-##    simulated with the dyadic reciprocity (and, with two indicators, the
-##    cross-indicator covariances) pooled across round robins, relationship
+##    simulated with the dyadic reciprocity (and, with several indicators, the
+##    cross-indicator covariances) pooled across round robins; the agreement
+##    between indicators within a dyad is taken from each group. Relationship
 ##    effects are estimated with Eqs. 9.3 to 9.5 and rescaled to each group's
 ##    observed sum of squares, and the mean within-group variance of the
 ##    dyadity indices is recomputed.
@@ -141,56 +151,62 @@ pair_moments <- function(Gu, Gv) {
     dfb = (n - 1) * (n - 2) / 2 - 1, dfw = (n - 1) * (n - 2) / 2)
 }
 
-pooled_cov <- function(rrs, r12 = NULL) {
-  # pooled (across round robins) correlation structure of a directed dyad
-  # (Z1_ij, Z2_ij, Z1_ji, Z2_ji); with one indicator only (Z1_ij, Z1_ji)
-  pm <- function(u, v) {
-    m <- rowSums(sapply(rrs, function(r) pair_moments(r[[u]], r[[v]])))
-    MSB <- m["sb"] / m["dfb"]; MSW <- m["sw"] / m["dfw"]
-    c(same = unname((MSB + MSW) / 2), recip = unname((MSB - MSW) / 2))
+dyad_cov <- function(rrs, k, l) {
+  # same-dyad and reciprocal covariance of indicators k and l, pooled over groups
+  m <- rowSums(sapply(rrs, function(r) pair_moments(r$G[[k]], r$G[[l]])))
+  MSB <- m["sb"] / m["dfb"]; MSW <- m["sw"] / m["dfw"]
+  c(same = unname((MSB + MSW) / 2), recip = unname((MSB - MSW) / 2))
+}
+
+group_same_cor <- function(r) {
+  # within-group correlation between indicators for the same directed dyad
+  K <- r$K; R <- diag(K)
+  if (K == 1) return(R)
+  v <- sapply(1:K, function(k) { p <- pair_moments(r$G[[k]], r$G[[k]])
+                                 max((p["sb"] / p["dfb"] + p["sw"] / p["dfw"]) / 2, 1e-8) })
+  for (k in 1:(K - 1)) for (l in (k + 1):K) {
+    p <- pair_moments(r$G[[k]], r$G[[l]])
+    R[k, l] <- R[l, k] <- max(min(((p["sb"] / p["dfb"] + p["sw"] / p["dfw"]) / 2) / sqrt(v[k] * v[l]), 0.99), -0.99)
   }
-  m11 <- pm("G1", "G1")
-  if (!rrs[[1]]$cross) {
-    S <- matrix(c(m11["same"], m11["recip"], m11["recip"], m11["same"]), 2)
-  } else {
-    m22 <- pm("G2", "G2"); m12 <- pm("G1", "G2")
-    v1 <- m11["same"]; v2 <- m22["same"]; c12 <- m12["same"]
-    S <- matrix(c(v1, c12, m11["recip"], m12["recip"],
-                  c12, v2, m12["recip"], m22["recip"],
-                  m11["recip"], m12["recip"], v1, c12,
-                  m12["recip"], m22["recip"], c12, v2), 4, byrow = TRUE)
+  R
+}
+
+null_loadings <- function(rrs) {
+  # one loading matrix per group for the 2K-vector (Z_1ij..Z_Kij, Z_1ji..Z_Kji)
+  K <- rrs[[1]]$K
+  same <- recip <- matrix(0, K, K)
+  for (k in 1:K) for (l in k:K) {
+    m <- dyad_cov(rrs, k, l)
+    same[k, l] <- same[l, k] <- m["same"]; recip[k, l] <- recip[l, k] <- m["recip"]
   }
-  S <- cov2cor(S)
-  if (!is.null(r12) && nrow(S) == 4) { S[1, 2] <- S[2, 1] <- S[3, 4] <- S[4, 3] <- r12 }
-  e <- eigen(S, symmetric = TRUE)                     # guard against non-positive-definite
-  L <- e$vectors %*% diag(sqrt(pmax(e$values, 1e-6))) # estimates in small samples
-  L
+  sd <- sqrt(pmax(diag(same), 1e-8))
+  Rrec <- recip / outer(sd, sd)
+  lapply(rrs, function(r) {
+    Rsame <- if (K == 1) diag(1) else group_same_cor(r)
+    Sig <- rbind(cbind(Rsame, Rrec), cbind(Rrec, Rsame))
+    e <- eigen(Sig, symmetric = TRUE)                  # guard against non-positive-definite
+    e$vectors %*% diag(sqrt(pmax(e$values, 1e-6)), nrow(Sig))   # small-sample estimates
+  })
 }
 
 sim_effects <- function(n, L) {
-  # simulate one round robin of dyad-level scores with loading matrix L
-  up <- which(upper.tri(diag(n)), arr.ind = TRUE); k <- nrow(L) / 2
+  # simulate one round robin of dyad-level scores for K indicators
+  up <- which(upper.tri(diag(n)), arr.ind = TRUE); K <- nrow(L) / 2
   Z <- matrix(rnorm(nrow(up) * nrow(L)), nrow(up)) %*% t(L)
-  out <- lapply(seq_len(k), function(v) {
+  lapply(seq_len(K), function(v) {
     X <- matrix(0, n, n)
-    X[up] <- Z[, v]; X[up[, 2:1]] <- Z[, k + v]; diag(X) <- NA; X
+    X[up] <- Z[, v]; X[up[, 2:1]] <- Z[, K + v]; diag(X) <- NA; X
   })
-  out
 }
 
 mc_null_one <- function(rr, L) {
   n <- rr$n
-  if (is.list(L)) L <- L[[rr$name]]
   sims <- sim_effects(n, L)
-  G1 <- srm_rr(sims[[1]])$G; diag(G1) <- 0
-  G1 <- G1 * sqrt(sum(rr$G1^2) / sum(G1^2))          # rescale to observed sum of squares
-  if (!rr$cross) {
-    S <- G1 * G1
-  } else {
-    G2 <- srm_rr(sims[[2]])$G; diag(G2) <- 0
-    G2 <- G2 * sqrt(sum(rr$G2^2) / sum(G2^2))
-    S <- G1 * G2
-  }
+  Gs <- lapply(seq_len(rr$K), function(k) {
+    G <- srm_rr(sims[[k]])$G; diag(G) <- 0
+    G * sqrt(sum(rr$G[[k]]^2) / sum(G^2))             # rescale to observed sum of squares
+  })
+  S <- product_matrix(Gs)
   c(exp = var(rowSums(S) / (n - 1)), elic = var(colSums(S) / (n - 1)))
 }
 
@@ -198,21 +214,11 @@ mc_test <- function(rrs, B = 9999, seed = NULL, progress = TRUE) {
   if (!is.null(seed)) set.seed(seed)
   T_exp  <- mean(sapply(rrs, `[[`, "var_exp"))
   T_elic <- mean(sapply(rrs, `[[`, "var_elic"))
-  for (g in names(rrs)) rrs[[g]]$name <- g
-  if (!rrs[[1]]$cross) {
-    L <- pooled_cov(rrs)
-  } else {
-    # reciprocal structure pooled; same-dyad agreement between indicators per group
-    L <- lapply(rrs, function(r) {
-      m <- function(u, v) { p <- pair_moments(r[[u]], r[[v]]); (p["sb"] / p["dfb"] + p["sw"] / p["dfw"]) / 2 }
-      r12 <- unname(m("G1", "G2") / sqrt(max(m("G1", "G1"), 1e-8) * max(m("G2", "G2"), 1e-8)))
-      pooled_cov(rrs, r12 = max(min(r12, 0.99), -0.99))
-    })
-  }
+  Ls <- null_loadings(rrs)
   null <- matrix(NA_real_, B, 2, dimnames = list(NULL, c("exp", "elic")))
   step <- max(1, B %/% 10)
   for (b in seq_len(B)) {
-    null[b, ] <- rowMeans(sapply(rrs, mc_null_one, L = L))
+    null[b, ] <- rowMeans(mapply(mc_null_one, rrs, Ls))
     if (progress && b %% step == 0) cat(sprintf("  Monte Carlo: %d of %d\n", b, B))
   }
   data.frame(
@@ -227,13 +233,17 @@ mc_test <- function(rrs, B = 9999, seed = NULL, progress = TRUE) {
 
 ## ---------------------------------------------------------------------------
 ## 5. Main function
+##    y: name of the dependent variable, or a vector of names of K >= 2
+##       indicators of the same construct (e.g., y = c("listen1", "listen2")).
+##    y2: kept for convenience; y = "a", y2 = "b" is the same as y = c("a", "b").
 ## ---------------------------------------------------------------------------
-dyadity_analysis <- function(data, group, actor, partner, y1, y2 = NULL,
+dyadity_analysis <- function(data, group, actor, partner, y, y2 = NULL,
                              B = 9999, seed = NULL, progress = TRUE) {
-  M1 <- long_to_matrices(data, group, actor, partner, y1)
-  M2 <- if (!is.null(y2)) long_to_matrices(data, group, actor, partner, y2) else NULL
-  rrs <- lapply(names(M1), function(g) dyadity_rr(M1[[g]], if (!is.null(M2)) M2[[g]]))
-  names(rrs) <- names(M1)
+  ys <- c(y, y2)
+  Ms <- lapply(ys, function(v) long_to_matrices(data, group, actor, partner, v))
+  gnames <- names(Ms[[1]])
+  rrs <- lapply(gnames, function(g) dyadity_rr(lapply(Ms, `[[`, g)))
+  names(rrs) <- gnames
   persons <- do.call(rbind, lapply(names(rrs), function(g)
     cbind(group = g, rrs[[g]]$persons, stringsAsFactors = FALSE)))
   rownames(persons) <- NULL
@@ -243,13 +253,14 @@ dyadity_analysis <- function(data, group, actor, partner, y1, y2 = NULL,
     mean_D = sapply(rrs, `[[`, "mean_D"),
     var_exp = sapply(rrs, `[[`, "var_exp"),
     var_elic = sapply(rrs, `[[`, "var_elic"),
-    rel_var = sapply(rrs, function(r) r$srm1$var_rel),
-    reciprocity = sapply(rrs, function(r) r$srm1$reciprocity),
+    rel_var = sapply(rrs, function(r) r$srm[[1]]$var_rel),
+    reciprocity = sapply(rrs, function(r) r$srm[[1]]$reciprocity),
     row.names = NULL)
   mc <- if (B > 0) mc_test(rrs, B = B, seed = seed, progress = progress) else NULL
-  structure(list(persons = persons, groups = groups, mc = mc, rr = rrs,
-                 method = if (is.null(y2)) "squares (Eqs. 9.6, 9.8)"
-                          else "cross-products of two indicators (Eqs. 9.6a, 9.8a)",
+  K <- length(ys)
+  structure(list(persons = persons, groups = groups, mc = mc, rr = rrs, K = K,
+                 method = if (K == 1) "one indicator, squared effects (Eqs. 9.6, 9.8)"
+                          else sprintf("%d indicators, cross-products (Eqs. 9.6a, 9.8a)", K),
                  B = B), class = "dyadity")
 }
 
@@ -258,16 +269,70 @@ print.dyadity <- function(x, digits = 3, ...) {
   cat("Round robins:", nrow(x$groups), "  Members:", nrow(x$persons), "\n")
   cat("\nPerson-level dyadity (D_exp = expressed, D_elic = elicited, Delta_D = Eq. 9.10):\n")
   print(x$persons, digits = digits, row.names = FALSE)
-  cat("\nGroup-level summary (var_exp, var_elic = within-group variances of the indices):\n")
+  cat("\nGroup-level summary (var_exp, var_elic = within-group variances of the indices;\n")
+  cat("rel_var and reciprocity are for the first indicator):\n")
   print(x$groups, digits = digits, row.names = FALSE)
   if (!is.null(x$mc)) {
     cat(sprintf("\nMonte Carlo test of individual differences in dyadity (B = %d):\n", x$B))
     print(x$mc, digits = digits, row.names = FALSE)
     cat("H0: no individual differences. Compare observed_T with null_mean, not with 0.\n")
-    if (all(x$groups$n == 4) && !grepl("cross", x$method))
+    if (all(x$groups$n == 4) && x$K == 1)
       cat("Note: with one indicator and n = 4, the expressed and elicited tests are identical.\n")
   }
   invisible(x)
+}
+
+## ---------------------------------------------------------------------------
+## 5b. Matrix-algebra verification (matrix specification of Chapter 9)
+##     Recomputes every quantity with the matrix formulas and checks the
+##     identities, round robin by round robin.
+## ---------------------------------------------------------------------------
+verify_matrix <- function(res, tol = 1e-8, show_C = TRUE) {
+  ok_all <- TRUE
+  for (g in names(res$rr)) {
+    r <- res$rr[[g]]; n <- r$n
+    one <- rep(1, n); J <- matrix(1, n, n); I <- diag(n); A <- J - I
+    Cm <- matrix(c(1, -1 / (n - 1), -1 / (n - 1), 1), 2)          # mixing matrix
+    W  <- (n - 1) / (n * (n - 2)) * matrix(c(n - 1, 1, 1, n - 1), 2)
+    checks <- c()
+    for (k in seq_len(r$K)) {
+      X <- r$X[[k]]; X0 <- X; diag(X0) <- 0
+      m_r <- as.vector(X0 %*% one) / (n - 1); m_c <- as.vector(t(X0) %*% one) / (n - 1)
+      M <- as.numeric(t(one) %*% X0 %*% one) / (n * (n - 1))
+      ab <- (W %x% I) %*% c(m_r, m_c) - (n - 1) / (n - 2) * M * c(one, one)   # 9.3, 9.4 stacked
+      a <- ab[1:n]; b <- ab[n + 1:n]
+      G <- (X0 - a %*% t(one) - one %*% t(b) - M * J) * A                    # 9.5
+      checks <- c(checks,
+        setNames(max(abs(a - r$srm[[k]]$actor)), paste0("alpha (9.3), indicator ", k)),
+        setNames(max(abs(b - r$srm[[k]]$partner)), paste0("beta (9.4), indicator ", k)),
+        setNames(max(abs(G - r$G[[k]])), paste0("Gamma (9.5), indicator ", k)),
+        setNames(max(abs(G %*% one)), paste0("Gamma 1 = 0, indicator ", k)),
+        setNames(max(abs(t(G) %*% one)), paste0("Gamma' 1 = 0, indicator ", k)))
+    }
+    S <- r$S
+    d_exp <- as.vector(S %*% one) / (n - 1); d_elic <- as.vector(t(S) %*% one) / (n - 1)
+    dd <- as.vector((S - t(S)) %*% one) / (n - 1)
+    checks <- c(checks,
+      "C %*% C^-1 = I"            = max(abs(Cm %*% W - I[1:2, 1:2])),
+      "d_exp (9.6/9.6a)"          = max(abs(d_exp - r$persons$D_exp)),
+      "d_elic (9.8/9.8a)"         = max(abs(d_elic - r$persons$D_elic)),
+      "D_Act = D_Prt (9.7, 9.9)"  = abs(mean(d_exp) - mean(d_elic)),
+      "Delta d (9.10)"            = max(abs(dd - r$persons$Delta_D)),
+      "1' Delta d = 0"            = abs(sum(dd)))
+    if (r$K == 1 && n == 4)
+      checks <- c(checks, "S2_Act = S2_Prt (n = 4)" = abs(var(d_exp) - var(d_elic)))
+    ok <- all(checks < tol); ok_all <- ok_all && ok
+    cat(sprintf("\nRound robin %s (n = %d, indicators = %d): %s\n", g, n, r$K,
+                if (ok) "all checks pass" else "CHECK FAILED"))
+    if (show_C && g == names(res$rr)[1]) {
+      cat("  Mixing matrix C:\n"); print(round(Cm, 4))
+      cat("  C^-1 (weights of Eqs. 9.3 and 9.4):\n"); print(round(W, 4))
+      cat(sprintf("  Weight on M.. = %.4f\n", (n - 1) / (n - 2)))
+    }
+    print(data.frame(check = names(checks), max_abs_difference = signif(checks, 3),
+                     row.names = NULL), row.names = FALSE)
+  }
+  invisible(ok_all)
 }
 
 ## ---------------------------------------------------------------------------
@@ -346,10 +411,12 @@ run_example <- function(B = 9999) {
   example_roles$role <- ifelse(example_roles$person == example_roles$group, "KP", "nominee")
 
   res <- dyadity_analysis(example_data, group = "group", actor = "actor",
-                          partner = "partner", y1 = "listening", B = B, seed = 2026)
+                          partner = "partner", y = "listening", B = B, seed = 2026)
   print(res)
   role_test(res, example_roles, role = "KP")      # Delta D for key persons
   kp_contrast_test(res, example_roles, kp_role = "KP")
+  verify_matrix(res)
+  invisible(res)
 }
 
 # Run the example when the file is executed with Rscript (not when sourced):
