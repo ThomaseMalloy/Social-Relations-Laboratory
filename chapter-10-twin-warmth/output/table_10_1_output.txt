@@ -1,0 +1,16 @@
+ platform item    M    SD actor_pct partner_pct relationship_pct actor_t
+     Kimi warm 3.62 1.287     16.50        55.0             28.5    4.97
+     Kimi kind 3.85 1.169     23.78        47.7             28.5    6.35
+ DeepSeek warm 3.96 1.038     12.90        44.0             43.1    5.14
+ DeepSeek kind 4.23 0.810     13.87        44.0             42.1    4.83
+ Nemotron warm 4.07 1.001      6.35        37.7             56.0    1.96
+ Nemotron kind 4.27 0.839      9.58        30.4             60.0    2.50
+ partner_t relationship_t  actor_p partner_p
+      8.35           12.8 4.35e-06  2.79e-11
+      7.25           11.0 3.42e-08  1.35e-09
+      5.94           12.3 2.40e-06  1.44e-07
+      5.31           11.3 7.00e-06  1.30e-06
+      5.16           10.1 2.77e-02  2.22e-06
+      3.90           10.1 7.94e-03  1.48e-04
+
+Effects in data/ch10_twin_warmth_srm_effects.csv match the raw ratings.
