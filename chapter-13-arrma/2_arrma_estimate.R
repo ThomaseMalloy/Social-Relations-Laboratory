@@ -19,7 +19,10 @@
 #   arrma_relationship_effects.csv  one row per directed dyad (actor i, partner j)
 #     meta.r for actor i and partner j is i's prediction of j's response to i,
 #     that is, gamma_imp,ji in the chapter's notation.
-# Output (output/): arrma_results.csv and arrma_results.txt
+# Output (output/): arrma_results.csv and arrma_results.txt, and an APA-style
+#   table of the ARRMA estimates with 95% CIs and p values:
+#   arrma_apa_table.txt (plain text), arrma_apa_table.csv, and
+#   arrma_apa_table.rtf (opens in Word as a formatted table)
 #
 # Run from the chapter-13-arrma folder. Base R only.
 # ==============================================================================
@@ -110,7 +113,9 @@ boot_ci <- function(dat, f, B) {
     d <- do.call(rbind, lapply(g, function(x) dat[dat$group == x, ]))
     f(d)
   })
-  t(apply(est, 1, quantile, c(.025, .975)))
+  ci <- t(apply(est, 1, quantile, c(.025, .975)))
+  attr(ci, "draws") <- est               # kept for bootstrap p values
+  ci
 }
 
 # ---- Individual ARRMA -------------------------------------------------------
@@ -170,3 +175,107 @@ sink()
 res <- rbind(data.frame(level = "individual", t(s_ind)), data.frame(level = "dyadic", t(s_dy)))
 write.csv(res, "output/arrma_results.csv", row.names = FALSE)
 cat("\nWrote output/arrma_results.txt and output/arrma_results.csv\n")
+
+# ==============================================================================
+# APA table of ARRMA estimates
+# Estimates are correlations or standardized coefficients (no leading zero).
+# 95% CIs: percentile bootstrap, resampling round robins.
+# p values: individual level, t tests with df = N - G - 2 (correlations and
+#   b*, c*); dyadic level, two-sided bootstrap p values (dyads are not
+#   independent, so analytic tests are not appropriate).
+# ==============================================================================
+if (n_boot > 0) {
+  apa_num <- function(x) sub("^(-?)0\\.", "\\1.", sprintf("%.2f", x))
+  apa_p <- function(p) ifelse(p < .001, "< .001", sub("^0\\.", ".", sprintf("%.3f", p)))
+  r_p <- function(r, df) 2 * pt(-abs(r * sqrt(df / (1 - r^2))), df)   # test of a correlation
+  boot_p <- function(draws, name, B) {
+    x <- draws[name, ]
+    max(min(1, 2 * min(mean(x <= 0), mean(x >= 0))), 1 / B)
+  }
+  labels <- c(reciprocity = "A  Reciprocity",
+              b_star      = "B  Assumed reciprocity (b*)",
+              c_star      = "C  Meta-accuracy (c*)",
+              raw_AR      = "   Raw assumed reciprocity correlation",
+              raw_MA      = "   Raw meta-accuracy correlation")
+  df_ind <- N - G - 2
+  df_r <- N - G - 1                      # correlations: one df lost per round robin
+  p_ind <- c(reciprocity = unname(r_p(s_ind["reciprocity"], df_r)),
+             b_star = tt_ind["b_star", "p"], c_star = tt_ind["c_star", "p"],
+             raw_AR = unname(r_p(s_ind["raw_AR"], df_r)), raw_MA = unname(r_p(s_ind["raw_MA"], df_r)))
+  dr_dy <- attr(ci_dy, "draws")
+  p_dy <- sapply(names(labels), function(k) boot_p(dr_dy, k, n_boot))
+  make_rows <- function(level, s, ci, p) data.frame(
+    Level = level, Parameter = labels, Estimate = apa_num(s[names(labels)]),
+    CI = paste0("[", apa_num(ci[names(labels), 1]), ", ", apa_num(ci[names(labels), 2]), "]"),
+    p = apa_p(p[names(labels)]), row.names = NULL, check.names = FALSE)
+  apa <- rbind(make_rows("Individual", s_ind, ci_ind, p_ind),
+               make_rows("Dyadic", s_dy, ci_dy, p_dy))
+  names(apa)[4] <- "95% CI"
+  title <- "ARRMA Parameter Estimates at the Individual and Dyadic Levels"
+  note <- paste0("Note. N = ", N, " people in G = ", G, " round robins; ", format(nrow(dy), big.mark = ","),
+    " directed dyads. A = reciprocity, the correlation of the two predictors ",
+    "(individual: perceiver and target effects in judgments; dyadic: relationship ",
+    "effects gamma_ij and gamma_ji). B and C are standardized partial coefficients from ",
+    "Equations 13.10 and 13.11 (individual) and 13.17 and 13.18 (dyadic); the raw ",
+    "correlations are the zero-order values that B and C correct. Individual R2 = ",
+    apa_num(s_ind["R2"]), "; dyadic R2 = ", apa_num(s_dy["R2"]), ". CIs are percentile ",
+    "bootstrap intervals from ", format(n_boot, big.mark = ","), " resamples of round robins. ",
+    "Individual-level p values are t tests with df = N - G - 1 = ", df_r, " for correlations and ",
+    "df = N - G - 2 = ", df_ind, " for b* and c*; dyadic p values are two-sided ",
+    "bootstrap p values because dyads within a round robin are not independent.")
+
+  # Plain text version
+  sink("output/arrma_apa_table.txt")
+  cat("Table 13.X\n\n", title, "\n\n", sep = "")
+  w <- c(40, 9, 15, 8)
+  line <- strrep("-", sum(w) + 3)
+  cat(line, "\n", sprintf("%-40s %9s %15s %8s", "Parameter", "Estimate", "95% CI", "p"), "\n", line, "\n", sep = "")
+  for (lev in c("Individual", "Dyadic")) {
+    cat(lev, "level\n")
+    a <- apa[apa$Level == lev, ]
+    for (k in seq_len(nrow(a)))
+      cat(sprintf("%-40s %9s %15s %8s", a$Parameter[k], a$Estimate[k], a$`95% CI`[k], a$p[k]), "\n")
+  }
+  cat(line, "\n", strwrap(note, 80), sep = "\n")
+  sink()
+  write.csv(apa, "output/arrma_apa_table.csv", row.names = FALSE)
+
+  # RTF version (opens in Word): Times New Roman 12, APA horizontal rules only
+  rtf_esc <- function(x) { x <- gsub("\\\\", "\\\\\\\\", x); x <- gsub("\\*", "*", x); x }
+  cellx <- c(4600, 5900, 7700, 8800)
+  row_rtf <- function(cells, top = FALSE, bottom = FALSE, bold = FALSE, italic_first = FALSE) {
+    b <- function(on) if (on) "\\clbrdrt\\brdrs\\brdrw10" else ""
+    bb <- function(on) if (on) "\\clbrdrb\\brdrs\\brdrw10" else ""
+    defs <- paste0(sapply(cellx, function(x) paste0(b(top), bb(bottom), "\\cellx", x)), collapse = "")
+    txt <- paste0(sapply(seq_along(cells), function(k) {
+      al <- if (k == 1) "\\ql" else "\\qc"
+      txt <- rtf_esc(cells[k])
+      if (k == 1 && grepl("^Raw ", txt)) al <- paste0(al, "\\li360")       # indent raw correlations
+      if (txt == "p") txt <- "\\i p\\i0"                                   # APA: italic p
+      paste0("\\pard\\intbl", al, " ", if (bold) "\\b " else "", txt, if (bold) "\\b0" else "", "\\cell")
+    }), collapse = "")
+    paste0("\\trowd\\trgaph108", defs, txt, "\\row\n")
+  }
+  con <- file("output/arrma_apa_table.rtf", "w")
+  cat("{\\rtf1\\ansi\\deff0{\\fonttbl{\\f0 Times New Roman;}}\\f0\\fs24\n",
+      "\\pard\\b Table 13.X\\b0\\par\\pard\\par\\pard\\i ", title, "\\i0\\par\\pard\\par\n", file = con, sep = "")
+  cat(row_rtf(c("Parameter", "Estimate", "95% CI", "p"), top = TRUE, bottom = TRUE), file = con)
+  for (lev in c("Individual", "Dyadic")) {
+    cat(row_rtf(c(paste(lev, "level"), "", "", "")), file = con)
+    a <- apa[apa$Level == lev, ]
+    for (k in seq_len(nrow(a))) {
+      last <- lev == "Dyadic" && k == nrow(a)
+      cat(row_rtf(c(trimws(a$Parameter[k]), a$Estimate[k], a$`95% CI`[k], a$p[k]), bottom = last), file = con)
+    }
+  }
+  note_rtf <- rtf_esc(sub("^Note\\. ", "", note))
+  note_rtf <- gsub("gamma_(ij|ji)", "\\\\u947?\\\\sub \\1\\\\nosupersub ", note_rtf)   # gamma with subscript
+  note_rtf <- gsub("R2", "\\\\i R\\\\i0\\\\super 2\\\\nosupersub ", note_rtf)            # R squared
+  note_rtf <- gsub(" - ", " \\\\u8722? ", note_rtf)                                     # minus sign
+  note_rtf <- gsub("(N|G) = ", "\\\\i \\1\\\\i0  = ", note_rtf)
+  note_rtf <- gsub(" p values", " \\\\i p\\\\i0  values", note_rtf)
+  cat("\\pard\\par\\pard\\i Note.\\i0  ", note_rtf, "\\par}\n", file = con, sep = "")
+  close(con)
+  cat("\nWrote output/arrma_apa_table.txt, .csv, and .rtf\n")
+  cat(readLines("output/arrma_apa_table.txt"), sep = "\n")
+}

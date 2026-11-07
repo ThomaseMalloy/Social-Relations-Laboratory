@@ -1,0 +1,33 @@
+Table 13.X
+
+ARRMA Parameter Estimates at the Individual and Dyadic Levels
+
+---------------------------------------------------------------------------
+Parameter                                 Estimate          95% CI        p
+---------------------------------------------------------------------------
+Individual level
+A  Reciprocity                                 .36      [.24, .46]   < .001 
+B  Assumed reciprocity (b*)                    .49      [.39, .59]   < .001 
+C  Meta-accuracy (c*)                          .10     [-.03, .22]     .118 
+   Raw assumed reciprocity correlation         .53      [.43, .61]   < .001 
+   Raw meta-accuracy correlation               .28      [.15, .40]   < .001 
+Dyadic level
+A  Reciprocity                                 .29      [.20, .39]   < .001 
+B  Assumed reciprocity (b*)                    .41      [.35, .46]   < .001 
+C  Meta-accuracy (c*)                          .16      [.07, .24]   < .001 
+   Raw assumed reciprocity correlation         .45      [.40, .50]   < .001 
+   Raw meta-accuracy correlation               .27      [.19, .35]   < .001 
+---------------------------------------------------------------------------
+
+
+Note. N = 240 people in G = 40 round robins; 1,200 directed dyads. A =
+reciprocity, the correlation of the two predictors (individual: perceiver and
+target effects in judgments; dyadic: relationship effects gamma_ij and
+gamma_ji). B and C are standardized partial coefficients from Equations 13.10
+and 13.11 (individual) and 13.17 and 13.18 (dyadic); the raw correlations are
+the zero-order values that B and C correct. Individual R2 = .29; dyadic R2 =
+.23. CIs are percentile bootstrap intervals from 2,000 resamples of round
+robins. Individual-level p values are t tests with df = N - G - 1 = 199 for
+correlations and df = N - G - 2 = 198 for b* and c*; dyadic p values are
+two-sided bootstrap p values because dyads within a round robin are not
+independent.

@@ -24,6 +24,7 @@ A long round robin file with one row per directed pair. It needs a round robin i
 | `data/arrma_relationship_effects.csv` | `group.id, actor.id, partner.id, judgment.r, meta.r`. For actor *i* and partner *j*, `meta.r` is γ_imp,ji: *i*'s prediction of *j*'s unique response to *i*. |
 | `data/example_round_robins.csv` | Simulated example: 40 round robins of 6 people, 1,200 directed ratings. Columns `group.id, actor.id, partner.id, judgment, meta`. True values: individual b* = .50, c* = .25, reciprocity = .30; dyadic b* = .45, c* = .20, reciprocity = .40. |
 | `output/arrma_results.txt` | Results for the example data, for comparison |
+| `output/arrma_apa_table.rtf` | APA-style table of the ARRMA estimates with 95% CIs and *p* values. It opens in Word. A plain text version (`.txt`) and a `.csv` are written too. |
 
 ## Steps
 
@@ -41,6 +42,7 @@ Already have TripleR output? Skip Step 1. Save the person effects (`$effects`) a
 
 - The standard equations and the matrix solution θ̂ = R_zz⁻¹ r_zy give identical b* and c*. The script stops with an error if they differ.
 - **Individual level:** t tests use df = N − G − 2. SRM effects sum to zero within each round robin, which costs one degree of freedom per round robin, and the model has 2 predictors.
+- **APA table:** CIs are percentile bootstrap intervals from resampling round robins. Individual-level *p* values are t tests (df = N − G − 1 for correlations, N − G − 2 for b* and c*). Dyadic *p* values are two-sided bootstrap *p* values.
 - **Dyadic level:** each dyad enters twice, as (*i*, *j*) and as (*j*, *i*), and people appear in several dyads. Use the bootstrap confidence intervals, which resample whole round robins, rather than `lm()` standard errors.
 - **Single indicators:** relationship effects from one indicator contain error, which pulls dyadic correlations toward zero. With two or more indicators, relationship and error can be separated. In the example data, the dyadic estimates are a little below the true values for this reason.
 - **Testing:** the scripts were tested with R 4.3.3 on the example data. TripleR could not be installed in the test environment, so Step 1 was not run there. It uses the same `RR()` call and `$effects` layout as the Chapter 10 scripts.
