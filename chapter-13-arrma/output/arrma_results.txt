@@ -1,0 +1,74 @@
+ARRMA estimates from data/arrma_person_effects.csv and data/arrma_relationship_effects.csv 
+
+================ Individual ARRMA (Eq. 13.5) ================
+Observations: 240 
+
+Raw correlations
+  A  Reciprocity                      0.356 
+     Raw assumed reciprocity (x1, y)   0.527 
+     Raw meta-accuracy (x2, y)         0.275 
+
+Standard equations (13.10/13.11 or 13.17/13.18)
+  B  b* unique assumed reciprocity     0.491 
+  C  c* unique meta-accuracy           0.101 
+
+Matrix equations: theta-hat = R_zz^-1 r_zy
+  R_zz =
+      [,1]  [,2]
+[1,] 1.000 0.356
+[2,] 0.356 1.000
+  r_zy = 0.527 0.275 
+  R_zz^-1 = 1/(1 - rho^2) [1, -rho; -rho, 1] =
+       [,1]   [,2]
+[1,]  1.145 -0.407
+[2,] -0.407  1.145
+  theta-hat = [b*, c*] = 0.491 0.101   (identical to the standard equations)
+  R-squared = 0.286 
+
+Tests (df = N - G - 2)
+       estimate     se      t  df      p
+b_star   0.4908 0.0642 7.6399 198 0.0000
+c_star   0.1008 0.0642 1.5683 198 0.1184
+
+95% bootstrap CIs, resampling round robins
+              2.5% 97.5%
+reciprocity  0.240 0.461
+b_star       0.390 0.589
+c_star      -0.029 0.220
+raw_MA       0.147 0.395
+  x1 = alpha_r (perceiver effect, judgment), x2 = beta_r (target effect,
+  judgment), y = alpha_mp (perceiver effect, metaperception)
+
+================ Dyadic ARRMA (Eq. 13.12) ================
+Observations: 1200 
+
+Raw correlations
+  A  Reciprocity                      0.290 
+     Raw assumed reciprocity (x1, y)   0.450 
+     Raw meta-accuracy (x2, y)         0.273 
+
+Standard equations (13.10/13.11 or 13.17/13.18)
+  B  b* unique assumed reciprocity     0.405 
+  C  c* unique meta-accuracy           0.155 
+
+Matrix equations: theta-hat = R_zz^-1 r_zy
+  R_zz =
+     [,1] [,2]
+[1,] 1.00 0.29
+[2,] 0.29 1.00
+  r_zy = 0.450 0.273 
+  R_zz^-1 = 1/(1 - rho^2) [1, -rho; -rho, 1] =
+       [,1]   [,2]
+[1,]  1.092 -0.317
+[2,] -0.317  1.092
+  theta-hat = [b*, c*] = 0.405 0.155   (identical to the standard equations)
+  R-squared = 0.225 
+
+95% bootstrap CIs, resampling round robins
+             2.5% 97.5%
+reciprocity 0.197 0.388
+b_star      0.352 0.462
+c_star      0.074 0.237
+raw_MA      0.188 0.353
+  x1 = gamma_ij, x2 = gamma_ji, y = gamma_imp,ji. Each dyad enters twice
+  (as i,j and as j,i), so use the bootstrap CIs, not lm() standard errors.
