@@ -1,0 +1,17 @@
+True values used to simulate data/example_triadic_long.csv
+Key people: 150; focal people per round robin: 4; groups: friends (g), coworkers (h)
+
+Population values, and what the estimates in Step 2 should be close to:
+  Grand means, satisfaction: friends 6.50, coworkers 5.50; listening: friends 6.00, coworkers 5.50
+    (plus a small upward shift from the KP egocentric bias: bias / n = +0.20 satisfaction, +0.10 listening)
+  Variance of KP grand means (sigma2_mu): 0.36 (+ about 0.022 from KP differences in bias)
+  Perceiver variance: friends 0.50, coworkers 0.25
+  Target variance: friends 0.40, coworkers 0.40; estimates also contain the KP bias, E(bias^2)/n:
+    expected estimate 0.65 for satisfaction and 0.46 for listening in both groups
+  Relationship variance: friends 0.60, coworkers 0.25; with one indicator the estimate also
+    contains error 0.10: expected 0.70 and 0.35
+  Egocentric bias, beta_KP - mean nominee beta: 0.80 satisfaction, 0.40 listening (both groups)
+  KP bias correlation across groups: 0.80; KP perceiver effect correlation across groups: 0.70
+    (observed correlations of the estimates are lower: they also contain sampling error)
+  Bivariate correlations of X and Y effects: perceiver 0.40, target 0.50, relationship 0.30
+    covariances: perceiver 0.200 / 0.100, relationship 0.180 / 0.075 (friends / coworkers)

@@ -1,0 +1,89 @@
+TABLE 14.6  Within-group triadic hypotheses (unit = key person; N = 150 KPs)
+
+[friends | listening]
+  Grand mean: mean of KP grand means = 6.050; SD = 0.860
+  sigma2_mu (moment estimate: var of KP means - mean sampling var) = 0.417
+  sigma2_mu, t test of d_k (one-sided, > 0)      est =   0.417  t(149) =   4.14  p < .001 
+  sigma2_mu (multilevel, KP random intercept) = 0.432  LR chi2(1) = 55.56  p < .001 (halved)
+  Perceiver variance (one-sided, > 0)            est =   0.545  t(149) =  10.64  p < .001 
+  Target variance (one-sided, > 0)               est =   0.404  t(149) =   7.44  p < .001 
+  Relationship variance (one-sided, > 0)         est =   0.724  t(149) =  18.88  p < .001 
+  Relative variance: perceiver 33%, target 24%, relationship (incl. error) 43%
+  alpha_KP = mean nominee alpha (paired)         est =  -0.003  t(149) =  -0.04  p = 0.971 
+  beta_KP = mean nominee beta (paired)           est =   0.432  t(149) =   5.38  p < .001 
+  Egocentric bias beta_KP > mean beta_N          est =   0.432  t(149) =   5.38  p < .001 (one-sided)
+
+[friends | satisfaction]
+  Grand mean: mean of KP grand means = 6.589; SD = 0.852
+  sigma2_mu (moment estimate: var of KP means - mean sampling var) = 0.353
+  sigma2_mu, t test of d_k (one-sided, > 0)      est =   0.353  t(149) =   4.37  p < .001 
+  sigma2_mu (multilevel, KP random intercept) = 0.345  LR chi2(1) = 29.12  p < .001 (halved)
+  Perceiver variance (one-sided, > 0)            est =   0.525  t(149) =   8.97  p < .001 
+  Target variance (one-sided, > 0)               est =   0.732  t(149) =  10.10  p < .001 
+  Relationship variance (one-sided, > 0)         est =   0.761  t(149) =  20.39  p < .001 
+  Relative variance: perceiver 26%, target 36%, relationship (incl. error) 38%
+  alpha_KP = mean nominee alpha (paired)         est =   0.039  t(149) =   0.47  p = 0.642 
+  beta_KP = mean nominee beta (paired)           est =   0.979  t(149) =  10.55  p < .001 
+  Egocentric bias beta_KP > mean beta_N          est =   0.979  t(149) =  10.55  p < .001 (one-sided)
+
+[coworkers | listening]
+  Grand mean: mean of KP grand means = 5.532; SD = 0.724
+  sigma2_mu (moment estimate: var of KP means - mean sampling var) = 0.316
+  sigma2_mu, t test of d_k (one-sided, > 0)      est =   0.316  t(149) =   5.41  p < .001 
+  sigma2_mu (multilevel, KP random intercept) = 0.303  LR chi2(1) = 54.53  p < .001 (halved)
+  Perceiver variance (one-sided, > 0)            est =   0.253  t(149) =   8.83  p < .001 
+  Target variance (one-sided, > 0)               est =   0.482  t(149) =  12.31  p < .001 
+  Relationship variance (one-sided, > 0)         est =   0.350  t(149) =  16.46  p < .001 
+  Relative variance: perceiver 23%, target 44%, relationship (incl. error) 32%
+  alpha_KP = mean nominee alpha (paired)         est =  -0.108  t(149) =  -1.98  p = 0.050 
+  beta_KP = mean nominee beta (paired)           est =   0.477  t(149) =   6.45  p < .001 
+  Egocentric bias beta_KP > mean beta_N          est =   0.477  t(149) =   6.45  p < .001 (one-sided)
+
+[coworkers | satisfaction]
+  Grand mean: mean of KP grand means = 5.628; SD = 0.703
+  sigma2_mu (moment estimate: var of KP means - mean sampling var) = 0.237
+  sigma2_mu, t test of d_k (one-sided, > 0)      est =   0.237  t(149) =   4.26  p < .001 
+  sigma2_mu (multilevel, KP random intercept) = 0.225  LR chi2(1) = 25.77  p < .001 (halved)
+  Perceiver variance (one-sided, > 0)            est =   0.274  t(149) =  10.40  p < .001 
+  Target variance (one-sided, > 0)               est =   0.677  t(149) =  13.58  p < .001 
+  Relationship variance (one-sided, > 0)         est =   0.324  t(149) =  20.01  p < .001 
+  Relative variance: perceiver 22%, target 53%, relationship (incl. error) 25%
+  alpha_KP = mean nominee alpha (paired)         est =  -0.067  t(149) =  -1.14  p = 0.256 
+  beta_KP = mean nominee beta (paired)           est =   0.938  t(149) =  11.73  p < .001 
+  Egocentric bias beta_KP > mean beta_N          est =   0.938  t(149) =  11.73  p < .001 (one-sided)
+
+TABLE 14.7  Between-group triadic hypotheses (friends = g, coworkers = h; paired over KPs)
+
+[listening]
+  Grand means (g - h)                            est =   0.518  t(149) =   9.45  p < .001 
+  Total variances (heterogeneity) (g - h)        est =   0.588  t(149) =   6.26  p < .001 
+  Perceiver variances (g - h)                    est =   0.292  t(149) =   4.90  p < .001 
+  Target variances (g - h)                       est =  -0.078  t(149) =  -1.08  p = 0.283 
+  Relationship variances (g - h)                 est =   0.374  t(149) =   8.47  p < .001 
+  KP perceiver effects (g - h)                   est =   0.079  t(149) =   1.22  p = 0.224 
+  KP target effects (g - h)                      est =  -0.034  t(149) =  -0.44  p = 0.660 
+  Consistency of KP perceiver effect:     r =  0.274  t(148) =   3.47  p < .001
+  Consistency of KP target effect:        r =  0.140  t(148) =   1.72  p = 0.088
+
+[satisfaction]
+  Grand means (g - h)                            est =   0.960  t(149) =  18.47  p < .001 
+  Total variances (heterogeneity) (g - h)        est =   0.743  t(149) =   6.92  p < .001 
+  Perceiver variances (g - h)                    est =   0.251  t(149) =   3.81  p < .001 
+  Target variances (g - h)                       est =   0.056  t(149) =   0.66  p = 0.509 
+  Relationship variances (g - h)                 est =   0.437  t(149) =  10.88  p < .001 
+  KP perceiver effects (g - h)                   est =   0.080  t(149) =   1.32  p = 0.187 
+  KP target effects (g - h)                      est =   0.031  t(149) =   0.39  p = 0.695 
+  Consistency of KP perceiver effect:     r =  0.422  t(148) =   5.67  p < .001
+  Consistency of KP target effect:        r =  0.260  t(148) =   3.28  p = 0.001
+
+TABLE 14.9  Bivariate associations: X = listening, Y = satisfaction (one-sided, > 0)
+
+[friends]
+  Cov(alpha_x, alpha_y)                          est =   0.238  t(149) =   5.63  p < .001 (r = 0.44)
+  Cov(beta_x, beta_y)                            est =   0.371  t(149) =   8.18  p < .001 (r = 0.68)
+  Cov(gamma_ij_x, gamma_ij_y)                    est =   0.172  t(149) =   5.65  p < .001 (r = 0.23)
+
+[coworkers]
+  Cov(alpha_x, alpha_y)                          est =   0.103  t(149) =   4.63  p < .001 (r = 0.39)
+  Cov(beta_x, beta_y)                            est =   0.367  t(149) =   9.59  p < .001 (r = 0.64)
+  Cov(gamma_ij_x, gamma_ij_y)                    est =   0.068  t(149) =   4.59  p < .001 (r = 0.20)

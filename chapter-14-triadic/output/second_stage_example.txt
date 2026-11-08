@@ -1,0 +1,26 @@
+A. Satisfaction target effects by role (KP vs nominee) and group
+                           Estimate Std. Error t value
+groupfriends                  0.734     0.0582    12.6
+groupcoworkers                0.703     0.0582    12.1
+groupfriends:rolenominee     -0.979     0.0672   -14.6
+groupcoworkers:rolenominee   -0.938     0.0672   -13.9
+   The model SEs treat the 4 effects in a round robin as independent; they are not
+   (they sum to zero), so use the paired t tests with KPs as units for inference:
+   friends   beta_KP - mean beta_N = 0.979, t(149) = 10.55, one-sided p < .001
+   coworkers beta_KP - mean beta_N = 0.938, t(149) = 11.73, one-sided p < .001
+
+B. Path model: KP egocentric bias (satisfaction) among coworkers
+                          lhs op                         rhs    est    se
+1               ego_coworkers  ~                 ego_friends  0.226 0.067
+2               ego_coworkers  ~ satisfaction.a.kp_coworkers  0.255 0.142
+3                 ego_friends ~~ satisfaction.a.kp_coworkers -0.009 0.050
+4               ego_coworkers ~~               ego_coworkers  0.868 0.100
+5                 ego_friends ~~                 ego_friends  1.284 0.148
+6 satisfaction.a.kp_coworkers ~~ satisfaction.a.kp_coworkers  0.286 0.033
+       z pvalue std.all
+1  3.366  0.001   0.263
+2  1.792  0.073   0.140
+3 -0.188  0.851  -0.015
+4  8.660  0.000   0.913
+5  8.660  0.000   1.000
+6  8.660  0.000   1.000
