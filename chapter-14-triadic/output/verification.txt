@@ -1,0 +1,38 @@
+1. Unbiasedness of the round robin estimators (Warner, Kenny, & Stoto, 1979)
+
+  n = 4 (30000 round robins)        true   mean estimate   (MC SE)
+  perceiver variance              0.300    0.299   (0.002)
+  target variance                 0.200    0.197   (0.002)
+  relationship variance           0.400    0.400   (0.002)
+  perceiver-target cov            0.100    0.100   (0.002)
+  dyadic (reciprocity) cov        0.150    0.150   (0.002)
+  Cov(alpha_x, alpha_y)           0.150    0.146   (0.002)
+  Cov(beta_x, beta_y)             0.100    0.099   (0.002)
+  Cov(gamma_x, gamma_y) intra     0.200    0.201   (0.001)
+  Cov(gamma_ij_x, gamma_ji_y)     0.075    0.075   (0.001)
+  grand mean sampling variance    0.221    0.220   (empirical variance of grand means 0.224)
+
+  n = 6 (10000 round robins)        true   mean estimate   (MC SE)
+  perceiver variance              0.300    0.296   (0.002)
+  target variance                 0.200    0.199   (0.002)
+  relationship variance           0.400    0.401   (0.001)
+  perceiver-target cov            0.100    0.098   (0.002)
+  dyadic (reciprocity) cov        0.150    0.150   (0.001)
+  Cov(alpha_x, alpha_y)           0.150    0.147   (0.002)
+  Cov(beta_x, beta_y)             0.100    0.099   (0.002)
+  Cov(gamma_x, gamma_y) intra     0.200    0.201   (0.001)
+  Cov(gamma_ij_x, gamma_ji_y)     0.075    0.075   (0.001)
+  grand mean sampling variance    0.135    0.134   (empirical variance of grand means 0.137)
+
+  All estimates are within Monte Carlo error of the true values.
+
+2. Type I error rates at alpha = .05 (1000 simulated data sets of 80 KPs, n = 4, two groups, all nulls true)
+  alpha_KP = mean alpha_N            rejection rate 0.057
+  beta_KP = mean beta_N              rejection rate 0.043
+  mu_g = mu_h                        rejection rate 0.062
+  sigma2_alpha_g = sigma2_alpha_h    rejection rate 0.052
+  sigma2_gamma_g = sigma2_gamma_h    rejection rate 0.054
+  r(beta_KP_g, beta_KP_h) = 0        rejection rate 0.054
+  sigma2_total_g = sigma2_total_h    rejection rate 0.057
+  sigma2_mu = 0 (t test of d_k)      rejection rate 0.052
+  (expected .050; Monte Carlo 95% range about 0.036 to 0.064)
