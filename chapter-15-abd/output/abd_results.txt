@@ -1,0 +1,139 @@
+                                      term estimate    SE      t df     p
+                       High_Low.warm.actor    0.176 0.054  3.269 49 0.001
+                     High_Low.warm.partner    0.118 0.043  2.717 49 0.005
+                High_Low.warm.relationship    0.424 0.040     NA 49    NA
+                       High_Low.kind.actor    0.219 0.051  4.283 49 0.000
+                     High_Low.kind.partner    0.126 0.036  3.507 49 0.000
+                High_Low.kind.relationship    0.403 0.039     NA 49    NA
+                     High_Low.warmth.actor    0.196 0.052  3.727 49 0.000
+                   High_Low.warmth.partner    0.121 0.039  3.140 49 0.001
+              High_Low.warmth.relationship    0.350 0.035  9.997 49 0.000
+            High_Low.warmth.actor_unstable    0.002 0.005     NA 49    NA
+          High_Low.warmth.partner_unstable    0.001 0.003     NA 49    NA
+     High_Low.warmth.relationship_unstable    0.064 0.012     NA 49    NA
+                       Low_High.warm.actor    0.204 0.075  2.710 49 0.005
+                     Low_High.warm.partner    0.147 0.047  3.139 49 0.001
+                Low_High.warm.relationship    0.527 0.050     NA 49    NA
+                       Low_High.kind.actor    0.214 0.072  2.969 49 0.002
+                     Low_High.kind.partner    0.112 0.047  2.381 49 0.011
+                Low_High.kind.relationship    0.499 0.046     NA 49    NA
+                     Low_High.warmth.actor    0.203 0.073  2.789 49 0.004
+                   Low_High.warmth.partner    0.122 0.047  2.608 49 0.006
+              Low_High.warmth.relationship    0.439 0.045  9.868 49 0.000
+            Low_High.warmth.actor_unstable    0.007 0.006     NA 49    NA
+          Low_High.warmth.partner_unstable    0.008 0.007     NA 49    NA
+     Low_High.warmth.relationship_unstable    0.073 0.010     NA 49    NA
+                           recip.warm.High   -0.002 0.039 -0.057 49 0.955
+                            recip.warm.Low    0.001 0.032  0.035 49 0.972
+                   recip.warm.relationship   -0.034 0.033 -1.054 49 0.297
+                           recip.kind.High    0.017 0.039  0.423 49 0.674
+                            recip.kind.Low    0.029 0.033  0.870 49 0.389
+                   recip.kind.relationship   -0.046 0.030 -1.527 49 0.133
+                         recip.warmth.High    0.009 0.038  0.226 49 0.822
+                          recip.warmth.Low    0.019 0.031  0.620 49 0.538
+                 recip.warmth.relationship   -0.039 0.029 -1.372 49 0.176
+                    High_Low.capable.actor    0.161 0.039  4.136 49 0.000
+                  High_Low.capable.partner    0.128 0.038  3.336 49 0.001
+             High_Low.capable.relationship    0.352 0.030     NA 49    NA
+                  High_Low.effective.actor    0.140 0.039  3.544 49 0.000
+                High_Low.effective.partner    0.111 0.038  2.902 49 0.003
+           High_Low.effective.relationship    0.358 0.030     NA 49    NA
+                 High_Low.competence.actor    0.151 0.036  4.166 49 0.000
+               High_Low.competence.partner    0.109 0.037  2.927 49 0.003
+          High_Low.competence.relationship    0.269 0.027  9.804 49 0.000
+        High_Low.competence.actor_unstable    0.000 0.005     NA 49    NA
+      High_Low.competence.partner_unstable    0.010 0.005     NA 49    NA
+ High_Low.competence.relationship_unstable    0.086 0.011     NA 49    NA
+                    Low_High.capable.actor    0.110 0.036  3.085 49 0.002
+                  Low_High.capable.partner    0.179 0.035  5.044 49 0.000
+             Low_High.capable.relationship    0.368 0.035     NA 49    NA
+                  Low_High.effective.actor    0.110 0.031  3.596 49 0.000
+                Low_High.effective.partner    0.161 0.037  4.315 49 0.000
+           Low_High.effective.relationship    0.339 0.034     NA 49    NA
+                 Low_High.competence.actor    0.113 0.031  3.636 49 0.000
+               Low_High.competence.partner    0.169 0.033  5.100 49 0.000
+          Low_High.competence.relationship    0.263 0.031  8.566 49 0.000
+        Low_High.competence.actor_unstable   -0.003 0.005     NA 49    NA
+      Low_High.competence.partner_unstable    0.001 0.004     NA 49    NA
+ Low_High.competence.relationship_unstable    0.090 0.010     NA 49    NA
+                        recip.capable.High   -0.008 0.029 -0.272 49 0.787
+                         recip.capable.Low    0.000 0.028  0.000 49 1.000
+                recip.capable.relationship   -0.010 0.028 -0.355 49 0.724
+                      recip.effective.High    0.006 0.029  0.193 49 0.847
+                       recip.effective.Low    0.019 0.022  0.840 49 0.405
+              recip.effective.relationship   -0.007 0.027 -0.243 49 0.809
+                     recip.competence.High    0.002 0.027  0.061 49 0.952
+                      recip.competence.Low    0.008 0.025  0.313 49 0.755
+             recip.competence.relationship   -0.005 0.026 -0.195 49 0.847
+ relative      r
+    0.245     NA
+    0.164     NA
+    0.591     NA
+    0.293     NA
+    0.168     NA
+    0.539     NA
+    0.267     NA
+    0.165     NA
+    0.478     NA
+    0.002     NA
+    0.001     NA
+    0.087     NA
+    0.233     NA
+    0.167     NA
+    0.600     NA
+    0.260     NA
+    0.136     NA
+    0.604     NA
+    0.238     NA
+    0.143     NA
+    0.516     NA
+    0.008     NA
+    0.009     NA
+    0.086     NA
+       NA -0.014
+       NA  0.007
+       NA -0.073
+       NA  0.106
+       NA  0.176
+       NA -0.102
+       NA  0.056
+       NA  0.122
+       NA -0.100
+    0.251     NA
+    0.199     NA
+    0.549     NA
+    0.230     NA
+    0.182     NA
+    0.588     NA
+    0.241     NA
+    0.175     NA
+    0.431     NA
+    0.000     NA
+    0.016     NA
+    0.137     NA
+    0.168     NA
+    0.272     NA
+    0.560     NA
+    0.180     NA
+    0.264     NA
+    0.556     NA
+    0.178     NA
+    0.265     NA
+    0.414     NA
+    0.000     NA
+    0.002     NA
+    0.141     NA
+       NA -0.046
+       NA  0.000
+       NA -0.028
+       NA  0.037
+       NA  0.171
+       NA -0.019
+       NA  0.010
+       NA  0.070
+       NA -0.019
+  direction  construct stable
+1  High_Low     warmth  0.910
+2  High_Low competence  0.847
+3  Low_High     warmth  0.897
+4  Low_High competence  0.857

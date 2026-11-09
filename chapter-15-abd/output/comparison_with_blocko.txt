@@ -1,0 +1,83 @@
+Absolute variances
+ direction   variable    component blocko     R
+  High_Low       warm        actor  0.176 0.176
+  High_Low       warm      partner  0.118 0.118
+  High_Low       warm relationship  0.424 0.424
+  High_Low       kind        actor  0.219 0.219
+  High_Low       kind      partner  0.126 0.126
+  High_Low       kind relationship  0.403 0.403
+  High_Low    capable        actor  0.161 0.161
+  High_Low    capable      partner  0.128 0.128
+  High_Low    capable relationship  0.352 0.352
+  High_Low  effective        actor  0.140 0.140
+  High_Low  effective      partner  0.111 0.111
+  High_Low  effective relationship  0.358 0.358
+  Low_High       warm        actor  0.204 0.204
+  Low_High       warm      partner  0.147 0.147
+  Low_High       warm relationship  0.527 0.527
+  Low_High       kind        actor  0.214 0.214
+  Low_High       kind      partner  0.112 0.112
+  Low_High       kind relationship  0.499 0.499
+  Low_High    capable        actor  0.110 0.110
+  Low_High    capable      partner  0.179 0.179
+  Low_High    capable relationship  0.368 0.368
+  Low_High  effective        actor  0.110 0.110
+  Low_High  effective      partner  0.161 0.161
+  Low_High  effective relationship  0.339 0.339
+  High_Low     warmth        actor  0.196 0.196
+  High_Low     warmth      partner  0.121 0.121
+  High_Low     warmth relationship  0.350 0.350
+  High_Low competence        actor  0.151 0.151
+  High_Low competence      partner  0.109 0.109
+  High_Low competence relationship  0.269 0.269
+  Low_High     warmth        actor  0.203 0.203
+  Low_High     warmth      partner  0.122 0.122
+  Low_High     warmth relationship  0.439 0.439
+  Low_High competence        actor  0.113 0.113
+  Low_High competence      partner  0.169 0.169
+  Low_High competence relationship  0.263 0.263
+
+Relative stable construct variances
+ direction   variable    component blocko     R
+  High_Low     warmth        actor  0.267 0.267
+  High_Low     warmth      partner  0.165 0.165
+  High_Low     warmth relationship  0.478 0.478
+  High_Low competence        actor  0.241 0.241
+  High_Low competence      partner  0.175 0.175
+  High_Low competence relationship  0.431 0.431
+  Low_High     warmth        actor  0.238 0.238
+  Low_High     warmth      partner  0.143 0.143
+  Low_High     warmth relationship  0.516 0.516
+  Low_High competence        actor  0.178 0.178
+  Low_High competence      partner  0.265 0.265
+  Low_High competence relationship  0.414 0.414
+
+Reciprocity correlations
+                          term blocko      R
+               recip.warm.High -0.014 -0.014
+                recip.warm.Low  0.007  0.007
+       recip.warm.relationship -0.073 -0.073
+               recip.kind.High  0.106  0.106
+                recip.kind.Low  0.176  0.176
+       recip.kind.relationship -0.102 -0.102
+            recip.capable.High -0.046 -0.046
+             recip.capable.Low  0.000  0.000
+    recip.capable.relationship -0.028 -0.028
+          recip.effective.High  0.037  0.037
+           recip.effective.Low  0.171  0.171
+  recip.effective.relationship -0.019 -0.019
+             recip.warmth.High  0.056  0.056
+              recip.warmth.Low  0.122  0.122
+     recip.warmth.relationship -0.100 -0.100
+         recip.competence.High  0.010  0.010
+          recip.competence.Low  0.070  0.070
+ recip.competence.relationship -0.019 -0.019
+
+Percent stable variance
+ direction  construct blocko     R
+  High_Low     warmth  0.910 0.910
+  High_Low competence  0.847 0.847
+  Low_High     warmth  0.897 0.897
+  Low_High competence  0.857 0.857
+
+70 values compared; largest absolute difference = 0.000
