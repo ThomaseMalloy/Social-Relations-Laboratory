@@ -1,0 +1,28 @@
+
+Blocks of 3 + 3 (300 replications of 50 blocks)
+                       true mean_estimate  mc_se
+A_B.c.actor          0.2000        0.1973 0.0025
+A_B.c.partner        0.1500        0.1511 0.0022
+A_B.c.relationship   0.3000        0.3007 0.0021
+B_A.c.actor          0.1000        0.1011 0.0018
+B_A.c.partner        0.2500        0.2516 0.0032
+B_A.c.relationship   0.3000        0.2986 0.0020
+recip.c.A            0.0671        0.0695 0.0020
+recip.c.B            0.0490        0.0485 0.0015
+recip.c.relationship 0.0750        0.0771 0.0014
+
+Blocks of 4 + 6 (300 replications of 50 blocks)
+                       true mean_estimate  mc_se
+A_B.c.actor          0.2000        0.1983 0.0016
+A_B.c.partner        0.1500        0.1496 0.0013
+A_B.c.relationship   0.3000        0.2995 0.0011
+B_A.c.actor          0.1000        0.0990 0.0010
+B_A.c.partner        0.2500        0.2511 0.0021
+B_A.c.relationship   0.3000        0.3004 0.0010
+recip.c.A            0.0671        0.0677 0.0013
+recip.c.B            0.0490        0.0480 0.0008
+recip.c.relationship 0.0750        0.0750 0.0007
+
+Type I error rates (alpha = .05) when the true value is zero:
+         A_B.c.actor            recip.c.A recip.c.relationship 
+               0.034                0.041                0.041 

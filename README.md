@@ -7,3 +7,4 @@ R code accompanying chapters of the book on the social relations model.
 - [Chapter 13: ARRMA (assumed reciprocity, reciprocity, and meta-accuracy)](chapter-13-arrma/)
 - [Chapter 14: Triadic idiographic round robins (key person and nominees)](chapter-14-triadic/)
 - [Chapter 15: Half-block SRM analysis (agents, digital twins, own-twin design)](chapter-15-half-block/)
+- [Chapter 15: Asymmetric block design (ABD) SRM analysis (example data and Blocko check)](chapter-15-abd/)
