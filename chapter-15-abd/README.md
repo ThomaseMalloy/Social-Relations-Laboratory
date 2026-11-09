@@ -58,3 +58,13 @@ On the Chapter 15 data, all 70 values compared (absolute variances for each indi
 ## Software
 
 R 4.3.3 (base R only).
+
+## Tables 15.8 and 15.9: five platforms, 0 to 6 conversational turns
+
+`4_table_15_8_turns.R` reruns the conversation study. `data/turn_study/` holds 20 ABD files
+(Haiku 5.5, Sonnet 5.5, DeepSeek, Kimi K3 and Nemotron 3, each after 0, 2, 4 and 6 turns;
+50 blocks of 3 high- and 3 low-status agents, 900 ratings per file). The script writes
+`output/table_15_8.csv` (relative partner and relationship construct variance with one-tailed
+stars), `output/table_15_8_long.csv` (all components with variances, t, df and p) and
+`output/table_15_9.csv` (medians across platforms), and shows how to compare turn
+conditions on the same blocks with `abd_compare()`.
