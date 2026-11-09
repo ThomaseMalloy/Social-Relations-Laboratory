@@ -1,0 +1,48 @@
+                                 term estimate    SE      t df     p   std
+1                          warm.actor    0.123 0.018  7.024 99 0.000 0.107
+2                        warm.partner    0.667 0.069  9.659 99 0.000 0.578
+3             warm.relationship_error    0.364 0.018     NA 99    NA 0.315
+4                          kind.actor    0.113 0.018  6.120 99 0.000 0.096
+5                        kind.partner    0.687 0.064 10.711 99 0.000 0.585
+6             kind.relationship_error    0.375 0.017     NA 99    NA 0.319
+7                        warmth.actor    0.107 0.016  6.729 99 0.000 0.093
+8                      warmth.partner    0.671 0.065 10.330 99 0.000 0.585
+9                 warmth.relationship    0.173 0.013 13.292 99 0.000 0.150
+10                       warmth.error    0.197 0.009     NA 99    NA 0.172
+11                      capable.actor    0.056 0.012  4.768 99 0.000 0.085
+12                    capable.partner    0.324 0.030 10.693 99 0.000 0.489
+13         capable.relationship_error    0.282 0.011     NA 99    NA 0.426
+14                    effective.actor    0.093 0.014  6.461 99 0.000 0.130
+15                  effective.partner    0.319 0.029 11.067 99 0.000 0.446
+16       effective.relationship_error    0.303 0.013     NA 99    NA 0.424
+17                   competence.actor    0.071 0.010  6.955 99 0.000 0.105
+18                 competence.partner    0.318 0.027 11.733 99 0.000 0.467
+19            competence.relationship    0.104 0.008 13.046 99 0.000 0.153
+20                   competence.error    0.188 0.008     NA 99    NA 0.276
+21        warmth_competence.actor_cov    0.055 0.011  5.155 99 0.000    NA
+22      warmth_competence.partner_cov   -0.183 0.032 -5.754 99 0.000    NA
+23 warmth_competence.relationship_cov    0.022 0.008  2.869 99 0.005    NA
+        r
+1      NA
+2      NA
+3      NA
+4      NA
+5      NA
+6      NA
+7      NA
+8      NA
+9      NA
+10     NA
+11     NA
+12     NA
+13     NA
+14     NA
+15     NA
+16     NA
+17     NA
+18     NA
+19     NA
+20     NA
+21  0.627
+22 -0.395
+23  0.167

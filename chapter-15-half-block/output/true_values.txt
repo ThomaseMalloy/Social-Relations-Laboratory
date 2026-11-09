@@ -1,0 +1,2 @@
+True construct values: actor .10/.05, partner .60/.40, relationship .15/.10, error .20; 
+actor r = .50, partner r = -.40, relationship r = .20; own-twin effect = .50
