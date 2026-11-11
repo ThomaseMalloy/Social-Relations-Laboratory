@@ -101,7 +101,7 @@ rounded to integers and kept within 1–7; the error variance is reduced by 1/12
 ## Notes for users
 
 * Negative variances and correlations outside ±1 can occur and are kept
-  as estimated (correlations are left empty when a variance is not positive). Inferencesnces are
+  as estimated (correlations are left empty when a variance is not positive). Inferences are made
   at the second stage, across families (`03_second_stage.R`).
 * The TripleR route in
   `02_srm_analysis.R` is written against TripleR's documented output (`varComp`, `effects`,
