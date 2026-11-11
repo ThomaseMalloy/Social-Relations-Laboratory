@@ -3,6 +3,7 @@
 R code and example data for chapters of the book. Each chapter folder has its own README
 with instructions; set the working directory to the chapter folder before running its scripts.
 
+- [Chapter 8: Multi-informant, multi-round robin (MIRR) families: simulation and TripleR](chapter-8-mirr/)
 - [Chapter 9: Dyadity](chapter-9-dyadity/)
 - [Chapter 10: Human agreeableness and digital twin warmth](chapter-10-twin-warmth/)
 - [Chapter 13: ARRMA (assumed reciprocity, reciprocity, and meta-accuracy)](chapter-13-arrma/)
