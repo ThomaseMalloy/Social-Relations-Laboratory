@@ -1,0 +1,110 @@
+
+=== 2000 families, continuous (not rounded) ===
+ source construct                  quantity population recovered difference
+      M       POS            actor variance      0.286     0.280     -0.007
+      M       POS          partner variance      0.163     0.162     -0.002
+      M       POS     relationship variance      0.216     0.217      0.002
+      M       POS            error variance      0.486     0.486      0.001
+      M       POS generalized reciprocity r      0.900     0.891     -0.009
+      M       POS      dyadic reciprocity r      0.847     0.877      0.030
+      M       NEG            actor variance      0.271     0.265     -0.006
+      M       NEG          partner variance      0.100     0.098     -0.002
+      M       NEG     relationship variance      0.267     0.274      0.007
+      M       NEG            error variance      0.364     0.359     -0.005
+      M       NEG generalized reciprocity r      0.835     0.774     -0.061
+      M       NEG      dyadic reciprocity r      0.470     0.470      0.000
+      F       POS            actor variance      0.275     0.268     -0.007
+      F       POS          partner variance      0.064     0.063     -0.001
+      F       POS     relationship variance      0.224     0.228      0.004
+      F       POS            error variance      0.448     0.443     -0.005
+      F       POS generalized reciprocity r      0.900     0.916      0.016
+      F       POS      dyadic reciprocity r      0.711     0.708     -0.003
+      F       NEG            actor variance      0.186     0.193      0.008
+      F       NEG          partner variance      0.045     0.055      0.009
+      F       NEG     relationship variance      0.329     0.314     -0.015
+      F       NEG            error variance      0.326     0.339      0.013
+      F       NEG generalized reciprocity r      0.737     0.739      0.002
+      F       NEG      dyadic reciprocity r      0.617     0.628      0.011
+      O       POS            actor variance      0.348     0.346     -0.002
+      O       POS          partner variance      0.179     0.188      0.008
+      O       POS     relationship variance      0.264     0.262     -0.002
+      O       POS            error variance      0.586     0.587      0.002
+      O       POS generalized reciprocity r      0.900     0.869     -0.031
+      O       POS      dyadic reciprocity r      0.901     0.871     -0.031
+      O       NEG            actor variance      0.337     0.349      0.012
+      O       NEG          partner variance      0.141     0.142      0.002
+      O       NEG     relationship variance      0.347     0.340     -0.007
+      O       NEG            error variance      0.434     0.438      0.004
+      O       NEG generalized reciprocity r      0.698     0.715      0.017
+      O       NEG      dyadic reciprocity r      0.499     0.480     -0.019
+      Y       POS            actor variance      0.235     0.225     -0.010
+      Y       POS          partner variance      0.126     0.110     -0.015
+      Y       POS     relationship variance      0.264     0.264      0.000
+      Y       POS            error variance      0.622     0.633      0.011
+      Y       POS generalized reciprocity r      0.900     0.874     -0.026
+      Y       POS      dyadic reciprocity r      0.851     0.877      0.026
+      Y       NEG            actor variance      0.266     0.272      0.006
+      Y       NEG          partner variance      0.103     0.101     -0.002
+      Y       NEG     relationship variance      0.270     0.280      0.010
+      Y       NEG            error variance      0.465     0.468      0.003
+      Y       NEG generalized reciprocity r      0.604     0.615      0.011
+      Y       NEG      dyadic reciprocity r      0.612     0.604     -0.008
+    all      both     other-other agreement      0.480     0.505      0.025
+    all      both      self-other agreement      0.360     0.403      0.043
+    all      both    relationship agreement      0.270     0.313      0.043
+Role means (Table 3): largest absolute difference 0.036 ; mean absolute difference 0.01 
+
+=== 2000 families, ROUNDED to 1-7 integers ===
+ source construct                  quantity population recovered difference
+      M       POS            actor variance      0.286     0.268     -0.019
+      M       POS          partner variance      0.163     0.153     -0.010
+      M       POS     relationship variance      0.216     0.213     -0.003
+      M       POS            error variance      0.486     0.481     -0.004
+      M       POS generalized reciprocity r      0.900     0.899     -0.001
+      M       POS      dyadic reciprocity r      0.847     0.875      0.027
+      M       NEG            actor variance      0.271     0.251     -0.020
+      M       NEG          partner variance      0.100     0.092     -0.008
+      M       NEG     relationship variance      0.267     0.267     -0.001
+      M       NEG            error variance      0.364     0.350     -0.014
+      M       NEG generalized reciprocity r      0.835     0.776     -0.059
+      M       NEG      dyadic reciprocity r      0.470     0.475      0.005
+      F       POS            actor variance      0.275     0.258     -0.016
+      F       POS          partner variance      0.064     0.059     -0.005
+      F       POS     relationship variance      0.224     0.223     -0.001
+      F       POS            error variance      0.448     0.435     -0.014
+      F       POS generalized reciprocity r      0.900     0.911      0.011
+      F       POS      dyadic reciprocity r      0.711     0.707     -0.004
+      F       NEG            actor variance      0.186     0.189      0.003
+      F       NEG          partner variance      0.045     0.052      0.007
+      F       NEG     relationship variance      0.329     0.302     -0.028
+      F       NEG            error variance      0.326     0.335      0.009
+      F       NEG generalized reciprocity r      0.737     0.740      0.003
+      F       NEG      dyadic reciprocity r      0.617     0.634      0.016
+      O       POS            actor variance      0.348     0.325     -0.023
+      O       POS          partner variance      0.179     0.175     -0.004
+      O       POS     relationship variance      0.264     0.253     -0.011
+      O       POS            error variance      0.586     0.565     -0.021
+      O       POS generalized reciprocity r      0.900     0.868     -0.032
+      O       POS      dyadic reciprocity r      0.901     0.861     -0.041
+      O       NEG            actor variance      0.337     0.321     -0.016
+      O       NEG          partner variance      0.141     0.129     -0.011
+      O       NEG     relationship variance      0.347     0.319     -0.028
+      O       NEG            error variance      0.434     0.414     -0.021
+      O       NEG generalized reciprocity r      0.698     0.714      0.016
+      O       NEG      dyadic reciprocity r      0.499     0.477     -0.023
+      Y       POS            actor variance      0.235     0.213     -0.022
+      Y       POS          partner variance      0.126     0.107     -0.019
+      Y       POS     relationship variance      0.264     0.250     -0.013
+      Y       POS            error variance      0.622     0.610     -0.012
+      Y       POS generalized reciprocity r      0.900     0.874     -0.026
+      Y       POS      dyadic reciprocity r      0.851     0.872      0.022
+      Y       NEG            actor variance      0.266     0.253     -0.014
+      Y       NEG          partner variance      0.103     0.095     -0.008
+      Y       NEG     relationship variance      0.270     0.272      0.002
+      Y       NEG            error variance      0.465     0.447     -0.018
+      Y       NEG generalized reciprocity r      0.604     0.625      0.021
+      Y       NEG      dyadic reciprocity r      0.612     0.587     -0.025
+    all      both     other-other agreement      0.480     0.502      0.022
+    all      both      self-other agreement      0.360     0.399      0.039
+    all      both    relationship agreement      0.270     0.312      0.042
+Role means (Table 3): largest absolute difference 0.032 ; mean absolute difference 0.01 

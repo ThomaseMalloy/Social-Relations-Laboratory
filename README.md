@@ -5,6 +5,7 @@
 R code and example data accompanying chapters of the book, in the folder
 [Interpersonal-Knowing-Theory-Method-and-Process-Modeling](Interpersonal-Knowing-Theory-Method-and-Process-Modeling/).
 
+- [Chapter 8: Multi-informant, multi-round robin (MIRR) families: simulation and TripleR](Interpersonal-Knowing-Theory-Method-and-Process-Modeling/chapter-8-mirr/)
 - [Chapter 9: Dyadity](Interpersonal-Knowing-Theory-Method-and-Process-Modeling/chapter-9-dyadity/)
 - [Chapter 10: Human agreeableness and digital twin warmth](Interpersonal-Knowing-Theory-Method-and-Process-Modeling/chapter-10-twin-warmth/)
 - [Chapter 13: ARRMA (assumed reciprocity, reciprocity, and meta-accuracy)](Interpersonal-Knowing-Theory-Method-and-Process-Modeling/chapter-13-arrma/)
