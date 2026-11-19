@@ -1,4 +1,4 @@
-# Interpersonal Knowing: Theory, Method, and Process Modeling
+# Interpersonal Knowing: Theory, Methods, and Process Modeling
 
 R code and example data for chapters of the book. Each chapter folder has its own README
 with instructions; set the working directory to the chapter folder before running its scripts.
